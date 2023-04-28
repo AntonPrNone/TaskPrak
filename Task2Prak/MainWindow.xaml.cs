@@ -1,17 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows;
 
 namespace Task2Prak
 {
@@ -20,9 +7,40 @@ namespace Task2Prak
     /// </summary>
     public partial class MainWindow : Window
     {
+        ConnectBD client = new ConnectBD();
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Enter_Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (Reg_CheckBox.IsPressed)
+            {
+                if (Logic.CheckIfString(Login_TextBox.Text) && Logic.CheckIfNumeric(Password_TextBox.Password))
+                {
+                    PlaceholderError.Visibility = Visibility.Collapsed;
+
+                    if (client.FindUser(Login_TextBox.Text) != null)
+                    {
+                        
+                    }
+
+                    else PlaceholderError.Visibility = Visibility.Visible;
+                }
+
+                else
+                    PlaceholderError.Visibility = Visibility.Visible;
+            }
+
+            else
+            { 
+                if (Logic.CheckIfString(Login_TextBox.Text) && Logic.CheckIfNumeric(Password_TextBox.Password))
+                    PlaceholderError.Visibility = Visibility.Collapsed;
+
+                else
+                    PlaceholderError.Visibility = Visibility.Visible;
+            }
         }
     }
 }
